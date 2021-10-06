@@ -1,0 +1,74 @@
+'use strict';
+
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
+let score = 20;
+let highscore = 0;
+
+// Refactoring functions
+const displayMessage = function (message) {
+  document.querySelector('.message').textContent = message;
+};
+
+const displayScore = function (score) {
+  document.querySelector('.score').textContent = score;
+};
+
+const displayNumber = function (number) {
+  document.querySelector('.number').textContent = number;
+};
+
+const displayGuess = function (guess) {
+  document.querySelector('.guess').value = guess;
+};
+
+// Check button
+document.querySelector('.check').addEventListener('click', function () {
+  const guess = Number(document.querySelector('.guess').value);
+  console.log(guess, typeof guess);
+
+  // When there is no input
+  if (!guess) {
+    displayMessage('⛔ No number!');
+
+    // When player wins
+  } else if (guess === secretNumber) {
+    displayMessage('🎉 Correct Number!');
+    displayNumber(secretNumber);
+
+    document.querySelector('body').style.backgroundColor = '#60b347';
+    document.querySelector('.number').style.width = '30rem';
+
+    if (score > highscore) {
+      highscore = score;
+      document.querySelector('.highscore').textContent = highscore;
+    }
+
+    // When guess is wrong
+  } else if (guess !== secretNumber) {
+    if (score > 1) {
+      displayMessage(guess > secretNumber ? '📈 Too high!' : '📉 Too low!');
+      score--;
+      displayScore(score);
+    } else {
+      displayMessage('😢 You lost the game!');
+      displayScore(0);
+    }
+  }
+});
+
+// Again button
+document.querySelector('.again').addEventListener('click', function () {
+  score = 20;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  displayMessage('Start guessing...');
+  displayScore(score);
+  displayNumber('?');
+  displayGuess('');
+  document.querySelector('body').style.backgroundColor = '#222';
+  document.querySelector('.number').style.width = '15rem';
+
+  // secretNumber sme museli prepisat z const na let aby sa dala znova pouzit value z premennej bez vytvarania novej
+  // score znova dat value 20 a z DOM toto skore vynat
+  // Otaznik v number aby sa skrylo secret cislo
+  // v guess prazdna value aby sa dalo vpisovat input
+});
