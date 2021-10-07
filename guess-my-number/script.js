@@ -66,9 +66,4 @@ document.querySelector('.again').addEventListener('click', function () {
   displayGuess('');
   document.querySelector('body').style.backgroundColor = '#222';
   document.querySelector('.number').style.width = '15rem';
-
-  // secretNumber sme museli prepisat z const na let aby sa dala znova pouzit value z premennej bez vytvarania novej
-  // score znova dat value 20 a z DOM toto skore vynat
-  // Otaznik v number aby sa skrylo secret cislo
-  // v guess prazdna value aby sa dalo vpisovat input
 });
